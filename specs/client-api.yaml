@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: client-api
+  description: 'Client API'
+  version: 1.0.0
+paths:
+  /client:
+    get:
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: Client id
+      responses:
+        200:
+          description: Success response with client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        200:
+          description: Success response with client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientResponse"
+components:
+  schemas:
+    ClientResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Operation success flag
+        message:
+          type: string
+          description: Error description
+        client:
+          $ref: "#/components/schemas/Client"
+      required:
+        - success
+        - message
+        - object
+    Client:
+      type: object
+      description: Client data
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Client unique id
+        name:
+          type: string
+          description: Client name
+          maximum: 32
+          minimum: 2
+        dateOfBirth:
+          type: string
+          format: date
+        createdAt:
+          type: string
+          description: Date of client registration
+          format: date-time
+        banned:
+          type: boolean
+          description: Ban flag
+        countAccounts:
+          type: integer
+          description: Count of client accounts
+          minimum: 0
+        serviceRate:
+          type: string
+          description: Service rate
+          enum:
+            - "FREE"
+            - "STANDARD"
+            - "VIP"
