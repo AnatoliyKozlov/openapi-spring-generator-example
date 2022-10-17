@@ -16,7 +16,7 @@
     <properties>
         <java.version>17</java.version>
         <springfox-oas.version>3.0.0</springfox-oas.version>
-        <jackson-databind-nullable.version>0.2.2</jackson-databind-nullable.version>
+        <jackson-databind-nullable.version>0.2.3</jackson-databind-nullable.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,7 +26,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.1</version>
         </dependency>
         <!-- Dependencies OpenAPI generator -->
         <dependency>
@@ -66,9 +70,8 @@
                         <configuration>
                             <inputSpec>${project.basedir}/specs/client-api.yaml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <configOptions>
-                                <sourceFolder>src/gen/java/main</sourceFolder>
-                            </configOptions>
+                            <apiPackage>dev.toliyansky.openapi.api</apiPackage>
+                            <modelPackage>dev.toliyansky.openapi.model</modelPackage>
                         </configuration>
                     </execution>
                 </executions>
